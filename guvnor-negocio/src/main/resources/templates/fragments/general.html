@@ -1,0 +1,14 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+</head>
+<body>
+
+<select th:fragment="selectAjax" th:id="${id}" th:name="${id}" th:attr="seleccione=${seleccione}, entorno=${entorno}, padre=${padre}, padreAux=${padreAux}, tipo=${tipo}" class="form-control"></select>
+            
+<option th:fragment="combo" th:each="opcion : ${opciones}" th:value="${opcion.valor}" th:text="${opcion.texto}"></option>
+
+<div th:fragment="mensaje" th:each="mensaje : ${mensajes}" th:class="|alert alert-${mensaje.tipo}|"><span th:class="|glyphicon glyphicon-${mensaje.icono}|" aria-hidden="true" /><span class="ml-5" th:text="${mensaje.texto}" /></div>
+
+</body>
+</html>

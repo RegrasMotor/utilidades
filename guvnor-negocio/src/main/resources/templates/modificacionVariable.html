@@ -1,0 +1,60 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="fragments/header :: header-css"/>
+</head>
+<body>
+
+<div th:replace="fragments/header :: header"/>
+
+<div class="container">
+
+    <div class="starter-template">
+        
+        <div class="row margin-bottom-md">
+	        <div class="col-md-6"><h3>Página de Modificación variable</h3></div>
+	        <div class="col-md-6 text-right">
+	        	<span class="badge" th:text="|Cacheo listas cada ${tiempoRecargarCache} milisegundos, última actualización ${#dates.format(fechaUltimoCacheo, 'dd-MM-yyyy HH:mm')}|"></span>
+	        </div>	        
+	    </div>        
+        <div class="row margin-bottom-md">
+	        <div class="col-md-3">
+	            <select id="regEntornoDesde" name="regEntornoDesde" class="form-control">
+	            	<option th:each="entorno : ${entornos}" th:value="${entorno.valor}" th:text="${entorno.nombre}" />
+	            </select> 	        
+	        </div>     
+	        <div class="col-md-3"><div th:replace="fragments/general :: selectAjax(seleccione='true', id='regPaquete', entorno='regEntornoDesde', padre='regEntornoDesde', tipo='paquete')"></div></div>
+	        <div class="col-md-3"><div th:replace="fragments/general :: selectAjax(seleccione='true', id='regTipoAsset',entorno='regEntornoDesde', padre='regPaquete', tipo='tipoAsset')"></div></div>
+	        <div class="col-md-3"><div th:replace="fragments/general :: selectAjax(seleccione='true', id='regAsset', entorno='regEntornoDesde', padre='regTipoAsset', padreAux='regPaquete', tipo='asset')"></div></div>
+        </div>
+        <div class="row margin-bottom-md">
+        	<div class="col-md-6"><button id="btnCargarBBDD" type="button" class="btn btn-primary btn-block disable-content">Cargar variable desde BBDD</button></div>
+        	<div class="col-md-6"><button id="btnCargarGuvnor" type="button" class="btn btn-primary btn-block disable-content">Cargar variable desde Guvnor</button></div>
+        </div>        
+        <div id="divCodigo" class="row margin-bottom-md disable-content">
+        	<div class="col-md-9"><textarea id="regCodigo" wrap="off"></textarea></div>
+        	<div class="col-md-3">
+        		<div class="margin-bottom-md">
+		            <select id="regEntornoHasta" name="regEntornoHasta" class="form-control">
+		            	<option th:each="entorno : ${entornos}" th:value="${entorno.valor}" th:text="${entorno.nombre}" />
+		            </select>        		
+        		</div>
+	            <div class="check-list">
+	        		<ul id="regPaquetesHasta" class="list-group checked-list-box">
+	                  <li th:fragment="paquetesHasta" class="list-group-item" th:each="opcion : ${opciones}" th:text="${opcion.texto}"></li>
+	                </ul>
+	            </div>        	
+        	</div>
+        </div>
+        <div class="row margin-bottom-md">
+        	<div class="col-md-12"><button id="btnGuardarGuvnor" type="button" class="btn btn-success btn-block disable-content">Guardar variable en Guvnor</button></div>
+        </div> 
+    </div>
+</div>
+<!-- /.container -->
+
+<div th:replace="fragments/footer :: footer"/>
+<script type="text/javascript" th:src="@{/js/checklist.js}"></script>
+<script type="text/javascript" th:src="@{/js/modificacionVariable.js}"></script>
+</body>
+</html>

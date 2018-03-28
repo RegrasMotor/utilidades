@@ -1,0 +1,44 @@
+package com.vector.drools
+ 
+rule "Prueba otro con numero mayor que 0"
+    when
+        $miOtro : Otro(id>0);
+    then
+    	System.out.println("REGLA - Prueba otro con numero mayor que 0:");
+        System.out.println($miOtro.getDesc());
+        System.out.println("");
+end
+ 
+rule "Prueba otro"
+    when
+        m : Message( status == Message.HELLO, myMessage : message );
+        $miOtro : Otro();
+    then
+    	System.out.println("REGLA - Prueba otro:");
+        System.out.println( myMessage  + " - " + $miOtro.getDesc());
+        System.out.println("");
+        m.setMessage( "Goodbye mundo" );
+        m.setStatus( Message.GOODBYE );
+        update( m );
+end
+
+rule "Hello World"
+    when
+        m : Message( status == Message.HELLO, myMessage : message )
+        $miOtro : Otro();
+    then
+		System.out.println("REGLA - Hello World:");
+        System.out.println( myMessage  + " - " + $miOtro.getDesc());
+        System.out.println("");
+end
+
+
+rule "GoodBye"
+    when
+        Message( status == Message.GOODBYE, myMessage : message )
+        $miOtro : Otro(id==1);
+    then
+    	System.out.println("REGLA - GoodBye:");
+        System.out.println( myMessage  + " - " + $miOtro.getDesc());
+        System.out.println("");
+end
